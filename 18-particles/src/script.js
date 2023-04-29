@@ -19,27 +19,41 @@ const scene = new THREE.Scene();
  */
 const textureLoader = new THREE.TextureLoader();
 
+const particleTexture = textureLoader.load("/textures/particles/2.png");
+
 /**
  * Particles
  */
 
 // geometry
 const particlesGeometry = new THREE.BufferGeometry();
-const count = 500
+const count = 5000;
 
-const positions = new Float32Array(count * 3 )
+// creating the positions to fill the point with
+const positions = new Float32Array(count * 3);
 
+// looping through the positions and filling it with a random value
+for (let i = 0; i < count * 3; i++) {
+  positions[i] = (Math.random() - 0.5) * 10;
+}
+
+particlesGeometry.setAttribute(
+  "position",
+  new THREE.BufferAttribute(positions, 3)
+);
 
 // Material
 const particlesMaterial = new THREE.PointsMaterial({
-  size: 0.02,
+  size: 0.1,
   sizeAttenuation: true,
+  color: "green",
+  alphaMap: particleTexture,
+  transparent: true,
 });
 
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particles);
-
 
 /**
  * Sizes
