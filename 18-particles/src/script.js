@@ -31,10 +31,12 @@ const count = 5000;
 
 // creating the positions to fill the point with
 const positions = new Float32Array(count * 3);
+const colors = new Float32Array(count * 3);
 
 // looping through the positions and filling it with a random value
 for (let i = 0; i < count * 3; i++) {
   positions[i] = (Math.random() - 0.5) * 10;
+  colors[i] = Math.random();
 }
 
 particlesGeometry.setAttribute(
@@ -42,13 +44,20 @@ particlesGeometry.setAttribute(
   new THREE.BufferAttribute(positions, 3)
 );
 
+particlesGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
 // Material
 const particlesMaterial = new THREE.PointsMaterial({
   size: 0.1,
   sizeAttenuation: true,
-  color: "green",
+//   color: "green",
   alphaMap: particleTexture,
   transparent: true,
+  // alphaTest: 0.0001
+  // depthTest:false
+  // depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  vertexColors: true,
 });
 
 // Points
