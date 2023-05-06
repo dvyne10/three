@@ -50,7 +50,7 @@ particlesGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 const particlesMaterial = new THREE.PointsMaterial({
   size: 0.1,
   sizeAttenuation: true,
-//   color: "green",
+  //   color: "green",
   alphaMap: particleTexture,
   transparent: true,
   // alphaTest: 0.0001
@@ -119,6 +119,11 @@ const clock = new THREE.Clock();
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
+
+  //update particles
+  // particles.rotation.z = elapsedTime * 0.2; this has control over the particle as a whole
+
+
 
   // Update controls
   controls.update();
